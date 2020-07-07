@@ -1,0 +1,52 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<body>
+
+<script src="https://unpkg.com/ipfs@0.41.0-rc.2/dist/index.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h1>Save Text to IPFS</h1>
+<textarea></textarea>
+<br/>
+<button onclick="dito($('textarea').val())">Submit</button>
+<div id="link"></div>
+</body>
+</html>
+
+<script id="rendered-js">
+var i = 1;
+var kode = "";
+async function damar(hai){
+  if(i == 1){
+    node = await Ipfs.create()
+  }
+  const data = hai
+
+  // add your data to to IPFS - this can be a string, a Buffer,
+  // a stream of Buffers, etc
+ // const results = node.add(data)
+
+  // we loop over the results because 'add' supports multiple 
+  // additions, but we only added one entry here so we only see
+  // one log line in the output
+  for await (const { cid } of node.add(data)) {
+    // CID (Content IDentifier) uniquely addresses the data
+    // and can be used to get it again.
+    //console.log(cid.toString())
+    kode = cid.toString();
+    if(i != 1){
+      $("#link").html("<a href='https://ipfs.io/ipfs/"+kode+"' target='_blank'>"+kode+"</a>");
+    }
+  }
+  await i++;
+}
+damar("makan");
+
+    </script>
+</body>
+</html>
