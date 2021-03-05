@@ -8,8 +8,10 @@ ports:
 
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init: | 
+  - init: echo 'init done'
+    command: |
+      clear
       ipfs init --profile server
       ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*", "http://localhost:3000", "http://127.0.0.1:5001", "https://webui.ipfs.io"]
       ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
-    command: ipfs daemon
+      ipfs daemon
